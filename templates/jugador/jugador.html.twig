@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+  {{ title }}
+{% endblock %}
+{% block body %}
+  <h1>
+    {{ title }}
+  </h1>
+  <a href="{{ path('jugador_list') }}">&laquo; Torna</a>
+  <div class="new" style="margin-top: 20px">
+    {{ form_start(form) }}
+
+    {{ form_label(form.posicio) }}<br>
+    {{ form_widget(form.posicio) }}<br><br>
+    {{ form_label(form.nom) }}<br>
+    {{ form_widget(form.nom) }}<br><br>
+    {{ form_label(form.sobrenom) }}<br>
+    {{ form_widget(form.sobrenom) }}<br><br>
+    {{ form_label(form.equip) }}<br>
+    {{ form_widget(form.equip) }}<br><br>
+    {{ form_label(form.imatge) }}<br>
+    {{ form_widget(form.imatge) }}<br>
+    {{ form_label(form.save) }}<br>
+    {{ form_widget(form.save) }}<br><br>
+
+    {{ form_end(form) }}
+
+  </div>
+{% endblock %}

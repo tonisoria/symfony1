@@ -1,0 +1,73 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+  Llistat de posicions
+{% endblock %}
+{% block body %}
+  <h1>
+    Llistat de posicions
+  </h1>
+
+  {% if is_granted('ROLE_USER') %}
+    <a href="{{ path('posicio_new') }}">+ Nova Posició</a>
+  {% endif %}
+
+  {% if searchTerm is defined %}
+    <p>
+      Resultats de cerca per: <strong>{{ searchTerm }}</strong>
+    </p>
+    <a href="{{ path('posicio_list') }}">x Esborrar resultats</a>
+  {% endif %}
+
+  {% for message in app.flashes('notice') %}
+    <strong>Success!</strong> {{ message }}
+  {% endfor %}
+<div class="table">
+  <table style="margin-top: 20px;margin-bottom: 10px;">
+    <thead>
+      <tr>
+        <th>
+          Nom
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for posicio in posicions %}
+        <tr>
+          <td>
+            {{ posicio.nom }}
+          </td>
+          {% if is_granted('ROLE_USER') %}
+            <td>
+              <a href="{{path('posicio_edit',{id: posicio.id})}}">Editar</a>&nbsp;&nbsp;
+              <a href="{{path('posicio_delete',{id: posicio.id})}}">Eliminar</a>
+            </td>
+          {% endif %}
+        </tr>
+      {% else %}
+        <tr>
+          <td colspan="5">
+            No hi ha posicions.
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+  <br />
+
+  <form name="form" method="post" action="{{ path('posicio_search') }}">
+    <div id="form">
+      <br>
+      <label for="form_term">
+        <em><strong>Formulari de Cerca</strong></em>
+      </label>
+      <input type="text"
+        id="form_term"
+        name="term"
+        required="required"
+        placeholder="Nom de la posicio" />
+      <button type="submit" id="form_save" name="save">Cerca</button>
+    </div>
+  </form>
+{% endblock %}

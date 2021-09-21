@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+  {{ title }}
+{% endblock %}
+{% block body %}
+  <h1>
+    {{ title }}
+  </h1>
+  <a href="{{ path('posicio_list') }}">&laquo; Torna</a>
+  <div class="new" style="margin-top: 20px">
+    {{ form_start(form) }}
+
+    {{ form_label(form.nom) }}<br>
+    {{ form_widget(form.nom) }}<br>
+    {{ form_label(form.save) }}<br>
+    {{ form_widget(form.save) }}<br><br>
+  
+    {{ form_end(form) }}
+  </div>
+{% endblock %}

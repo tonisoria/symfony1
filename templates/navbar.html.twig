@@ -1,0 +1,14 @@
+<!-- Navigation -->
+<nav>
+  <a href="{{ path('home') }}">INICI</a>
+  &nbsp;&nbsp;&nbsp;
+  <a href="{{ path('posicio_list') }}">Posicions</a>
+  &nbsp;
+  <a href="{{ path('jugador_list') }}">Jugadors</a>
+  &nbsp;
+  {% if is_granted('ROLE_USER') %}
+    <a style="float:right;" href="{{ path('app_logout') }}">Logout</a>
+  {% else %}
+    <a style="float:right;" href="{{ path('app_login') }}">Login</a>
+  {% endif %}
+</nav>

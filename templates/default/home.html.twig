@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+  Home
+{% endblock %}
+{% block body %}
+  <!-- Header -->
+
+  <header>
+    <div>
+      <img src="{{ absolute_url(asset('img/logo.png')) }}" alt="" />
+      <h1>
+        Projecte de Symfony
+      </h1>
+      <hr />
+      <h2>
+        Projecte per mostrar els conceptes apresos amb Symfony
+      </h2>
+    </div>
+  </header>
+
+  <!-- About Section -->
+  <section>
+    <div>
+      <h2>
+        Sobre el projecte
+      </h2>
+      <hr />
+      <div>
+        <div>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
+            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+            aliquip ex ea commodo consequat. Duis aute irure dolor in
+            reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+            pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+            culpa qui officia deserunt mollit anim id est laborum.
+          </p>
+        </div>
+      </div>
+      <hr/>
+    </div>
+  </section>
+{% endblock %}

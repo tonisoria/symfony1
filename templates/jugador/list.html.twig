@@ -1,0 +1,121 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+  Llistat de jugadors
+{% endblock %}
+
+{% block body %}
+
+  <script src="{{asset('js/script.js')}}"></script>
+
+  <h1>
+    Llistat de jugadors
+  </h1>
+
+  {% if is_granted('ROLE_USER') %}
+    <a href="{{ path('jugador_new') }}">+ Nou Jugador</a>
+  {% endif %}
+
+  {% if searchTerm is defined %}
+    <p>
+      Resultats de cerca per: <strong>{{ searchTerm }}</strong>
+    </p>
+    <a href="{{ path('jugador_list') }}">x Esborrar resultats</a>
+  {% endif %}
+
+  <form name="form" method="post" action="{{ path('jugador_filter') }}">
+    <div id="form">
+      <br>
+      <label for="form_pos">
+        <em><strong>Filtrar per posició: </strong></em>
+      </label>
+      <select id="form_pos" name="pos">
+          <option value="">Totes les categories</option>
+          {% for posicio in posicions %}
+          <option {% if searchTerm is defined and posicio.nom == searchTerm %} selected {% endif %} value="{{ posicio.nom }}">{{ posicio.nom }}</option>
+          {% endfor %}
+      </select>
+      <button type="submit" id="form_save" name="save">Filtra</button>
+    </div>
+  </form>
+
+  {% for message in app.flashes('notice') %}
+    <br><strong>Success!</strong> {{ message }}
+  {% endfor %}
+
+  <div class="table">
+    <table style="margin-top: 20px;margin-bottom: 10px;">
+      <thead>
+        <tr>
+          <th>
+            Nom
+          </th>
+          <th>
+            Sobrenom
+          </th>
+          <th>
+            Equip
+          </th>
+          <th>
+            Posició
+          </th>
+          <th>
+            Imatge
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for jugador in jugadors %}
+          <tr>
+            <td>
+              {{ jugador.nom }}
+            </td>
+            <td>
+              {{ jugador.sobrenom }}
+            </td>
+            <td>
+              {{ jugador.equip }}
+            </td>
+            <td>
+              {{ jugador.posicio.nom }}
+            </td>
+            <td>
+              <div class="imgCont">
+              <img class="img"
+                src="{{ asset('img/uploads/' ~ jugador.imatge) }}"
+                alt="" />
+              </div>
+            </td>
+            {% if is_granted('ROLE_USER') %}
+              <td>
+                <a href="{{path('jugador_edit',{id: jugador.id})}}">Editar</a>&nbsp;&nbsp;
+                <a href="{{path('jugador_delete',{id: jugador.id})}}" onclick="return eliminar()">Eliminar</a>
+              </td>
+            {% endif %}
+          </tr>
+        {% else %}
+          <tr>
+            <td colspan="5">
+              No hi ha jugadors.
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  <form name="form" method="post" action="{{ path('jugador_search') }}">
+    <div id="form">
+    <br>
+      <label for="form_term">
+        <em><strong>Formulari de Cerca</strong></em>
+      </label>
+      <input type="text"
+        id="form_term"
+        name="term"
+        required="required"
+        placeholder="Nom del jugador" />
+      <button type="submit" id="form_save" name="save">Cerca</button>
+    </div>
+  </form>
+{% endblock %}
